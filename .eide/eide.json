@@ -1,0 +1,312 @@
+{
+  "name": "Cadence",
+  "type": "ARM",
+  "dependenceList": [],
+  "srcDirs": [
+    ".eide/deps"
+  ],
+  "virtualFolder": {
+    "name": "<virtual_root>",
+    "files": [],
+    "folders": [
+      {
+        "name": "nRF_BLE",
+        "files": [
+          {
+            "path": "Core/nRF52/modules/components/ble/ble_advertising/ble_advertising.c"
+          },
+          {
+            "path": "Core/nRF52/modules/components/ble/common/ble_advdata.c"
+          },
+          {
+            "path": "Core/nRF52/modules/components/ble/common/ble_conn_params.c"
+          },
+          {
+            "path": "Core/nRF52/modules/components/ble/common/ble_conn_state.c"
+          },
+          {
+            "path": "Core/nRF52/modules/components/ble/common/ble_srv_common.c"
+          },
+          {
+            "path": "Core/nRF52/modules/components/ble/nrf_ble_gatt/nrf_ble_gatt.c"
+          },
+          {
+            "path": "Core/nRF52/modules/components/ble/nrf_ble_qwr/nrf_ble_qwr.c"
+          },
+          {
+            "path": "Core/nRF52/modules/components/ble/peer_manager/auth_status_tracker.c"
+          },
+          {
+            "path": "Core/nRF52/modules/components/ble/peer_manager/gatt_cache_manager.c"
+          },
+          {
+            "path": "Core/nRF52/modules/components/ble/peer_manager/gatts_cache_manager.c"
+          },
+          {
+            "path": "Core/nRF52/modules/components/ble/peer_manager/id_manager.c"
+          },
+          {
+            "path": "Core/nRF52/modules/components/ble/peer_manager/peer_data_storage.c"
+          },
+          {
+            "path": "Core/nRF52/modules/components/ble/peer_manager/peer_database.c"
+          },
+          {
+            "path": "Core/nRF52/modules/components/ble/peer_manager/peer_id.c"
+          },
+          {
+            "path": "Core/nRF52/modules/components/ble/peer_manager/peer_manager_handler.c"
+          },
+          {
+            "path": "Core/nRF52/modules/components/ble/peer_manager/peer_manager.c"
+          },
+          {
+            "path": "Core/nRF52/modules/components/ble/peer_manager/pm_buffer.c"
+          },
+          {
+            "path": "Core/nRF52/modules/components/ble/peer_manager/security_dispatcher.c"
+          },
+          {
+            "path": "Core/nRF52/modules/components/ble/peer_manager/security_manager.c"
+          }
+        ],
+        "folders": []
+      },
+      {
+        "name": "nRF_BLE_Services",
+        "files": [
+          {
+            "path": "Core/nRF52/modules/components/ble/ble_services/ble_bas/ble_bas.c"
+          },
+          {
+            "path": "Core/nRF52/modules/components/ble/ble_services/ble_cscs/ble_cscs.c"
+          },
+          {
+            "path": "Core/nRF52/modules/components/ble/ble_services/ble_cscs/ble_sc_ctrlpt.c"
+          },
+          {
+            "path": "Core/nRF52/modules/components/ble/ble_services/ble_dis/ble_dis.c"
+          }
+        ],
+        "folders": []
+      },
+      {
+        "name": "nRF_Drivers",
+        "files": [
+          {
+            "path": "Core/nRF52/modules/nrfx/drivers/src/nrfx_clock.c"
+          },
+          {
+            "path": "Core/nRF52/modules/nrfx/drivers/src/nrfx_gpiote.c"
+          },
+          {
+            "path": "Core/nRF52/modules/nrfx/drivers/src/nrfx_power.c"
+          },
+          {
+            "path": "Core/nRF52/modules/nrfx/drivers/src/nrfx_uart.c"
+          },
+          {
+            "path": "Core/nRF52/modules/nrfx/drivers/src/nrfx_uarte.c"
+          },
+          {
+            "path": "Core/nRF52/modules/nrfx/drivers/src/prs/nrfx_prs.c"
+          },
+          {
+            "path": "Core/nRF52/modules/nrfx/soc/nrfx_atomic.c"
+          }
+        ],
+        "folders": []
+      },
+      {
+        "name": "nRF_Libraries",
+        "files": [
+          {
+            "path": "Core/nRF52/modules/components/libraries/atomic_fifo/nrf_atfifo.c"
+          },
+          {
+            "path": "Core/nRF52/modules/components/libraries/atomic_flags/nrf_atflags.c"
+          },
+          {
+            "path": "Core/nRF52/modules/components/libraries/atomic/nrf_atomic.c"
+          },
+          {
+            "path": "Core/nRF52/modules/components/libraries/balloc/nrf_balloc.c"
+          },
+          {
+            "path": "Core/nRF52/modules/components/libraries/button/app_button.c"
+          },
+          {
+            "path": "Core/nRF52/modules/components/libraries/crc16/crc16.c"
+          },
+          {
+            "path": "Core/nRF52/modules/components/libraries/experimental_section_vars/nrf_section_iter.c"
+          },
+          {
+            "path": "Core/nRF52/modules/components/libraries/fds/fds.c"
+          },
+          {
+            "path": "Core/nRF52/modules/components/libraries/fstorage/nrf_fstorage_sd.c"
+          },
+          {
+            "path": "Core/nRF52/modules/components/libraries/fstorage/nrf_fstorage.c"
+          },
+          {
+            "path": "Core/nRF52/modules/components/libraries/util/app_error_handler_keil.c"
+          },
+          {
+            "path": "Core/nRF52/modules/components/libraries/util/app_error_weak.c"
+          },
+          {
+            "path": "Core/nRF52/modules/components/libraries/util/app_error.c"
+          },
+          {
+            "path": "Core/nRF52/modules/components/libraries/util/app_util_platform.c"
+          },
+          {
+            "path": "Core/nRF52/modules/components/libraries/util/nrf_assert.c"
+          }
+        ],
+        "folders": []
+      },
+      {
+        "name": "nRF_SoftDevice",
+        "files": [
+          {
+            "path": "Core/nRF52/modules/components/softdevice/common/nrf_sdh.c"
+          },
+          {
+            "path": "Core/nRF52/modules/components/softdevice/common/nrf_sdh_ble.c"
+          },
+          {
+            "path": "Core/nRF52/modules/components/softdevice/common/nrf_sdh_soc.c"
+          }
+        ],
+        "folders": []
+      },
+      {
+        "name": "Sources",
+        "files": [
+          {
+            "path": "Core/nRF52/modules/nrfx/mdk/arm_startup_nrf52.s"
+          },
+          {
+            "path": "Core/nRF52/modules/nrfx/mdk/system_nrf52.c"
+          },
+          {
+            "path": "Source.cpp"
+          }
+        ],
+        "folders": []
+      }
+    ]
+  },
+  "outDir": "build",
+  "deviceName": null,
+  "packDir": null,
+  "miscInfo": {
+    "uid": "398ee3dda775946897f58ba3acf8d8d4"
+  },
+  "targets": {
+    "Debug": {
+      "excludeList": [],
+      "toolchain": "AC5",
+      "compileConfig": {
+        "cpuType": "Cortex-M4",
+        "floatingPointHardware": "single",
+        "useCustomScatterFile": false,
+        "scatterFilePath": "<YOUR_SCATTER_FILE>.sct",
+        "storageLayout": {
+          "RAM": [
+            {
+              "tag": "IRAM",
+              "id": 1,
+              "mem": {
+                "startAddr": "0x20000000",
+                "size": "0x5000"
+              },
+              "isChecked": true,
+              "noInit": false
+            }
+          ],
+          "ROM": [
+            {
+              "tag": "IROM",
+              "id": 1,
+              "mem": {
+                "startAddr": "0x08000000",
+                "size": "0x10000"
+              },
+              "isChecked": true,
+              "isStartup": true
+            }
+          ]
+        },
+        "options": "null"
+      },
+      "uploader": "JLink",
+      "uploadConfig": {
+        "bin": "",
+        "baseAddr": "",
+        "cpuInfo": {
+          "vendor": "null",
+          "cpuName": "null"
+        },
+        "proType": 1,
+        "speed": 8000,
+        "otherCmds": ""
+      },
+      "uploadConfigMap": {},
+      "custom_dep": {
+        "name": "default",
+        "incList": [
+          ".eide/deps",
+          ".",
+          "Core/CMSIS/CMSIS/Core/Include",
+          "Core/nRF52/modules/nrfx/mdk",
+          "Core/nRF52/modules/components/ble/peer_manager",
+          "Core/nRF52/modules/components/ble/common",
+          "Core/nRF52/modules/components/ble/ble_advertising",
+          "Core/nRF52/modules/components/ble/nrf_ble_gatt",
+          "Core/nRF52/modules/components/ble/nrf_ble_qwr",
+          "Core/nRF52/modules/components/ble/ble_services/ble_bas",
+          "Core/nRF52/modules/components/ble/ble_services/ble_cscs",
+          "Core/nRF52/modules/components/ble/ble_services/ble_dis",
+          "Core/nRF52/modules/nrfx/soc",
+          "Core/nRF52/modules/nrfx/drivers/include",
+          "Core/nRF52/modules/components/libraries/button",
+          "Core/nRF52/modules/components/libraries/util",
+          "Core/nRF52/modules/components/libraries/atomic",
+          "Core/nRF52/modules/components/libraries/atomic_fifo",
+          "Core/nRF52/modules/components/libraries/atomic_flags",
+          "Core/nRF52/modules/components/libraries/balloc",
+          "Core/nRF52/modules/components/libraries/crc16",
+          "Core/nRF52/modules/components/libraries/fds",
+          "Core/nRF52/modules/components/libraries/fstorage",
+          "Core/nRF52/modules/components/libraries/hardfault",
+          "Core/nRF52/modules/components/libraries/memobj",
+          "Core/nRF52/modules/components/libraries/pwr_mgmt",
+          "Core/nRF52/modules/components/libraries/ringbuf",
+          "Core/nRF52/modules/components/libraries/sensorsim",
+          "Core/nRF52/modules/components/libraries/sortlist",
+          "Core/nRF52/modules/components/libraries/strerror",
+          "Core/nRF52/modules/components/libraries/timer",
+          "Core/nRF52/modules/components/softdevice/s132/headers",
+          "Core/nRF52/modules/components/softdevice/common",
+          "Core/nRF52/modules/components/libraries/experimental_section_vars",
+          "Core/nRF52/modules/components/libraries/log",
+          "Core/nRF52/modules/components/libraries/log/src",
+          "Core/nRF52/modules/components/libraries/mutex",
+          "Core/nRF52/modules/nrfx",
+          "Core/nRF52/modules/nrfx/templates/nRF52832",
+          "Core/nRF52/integration/nrfx"
+        ],
+        "libList": [],
+        "sourceDirList": [],
+        "defineList": [
+          "NRF52832_XXAA"
+        ]
+      }
+    }
+  },
+  "version": "3.3"
+}

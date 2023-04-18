@@ -94,6 +94,15 @@
         "name": "nRF_Drivers",
         "files": [
           {
+            "path": "Core/nRF52/integration/nrfx/legacy/nrf_drv_clock.c"
+          },
+          {
+            "path": "Core/nRF52/integration/nrfx/legacy/nrf_drv_twi.c"
+          },
+          {
+            "path": "Core/nRF52/integration/nrfx/legacy/nrf_drv_uart.c"
+          },
+          {
             "path": "Core/nRF52/modules/nrfx/drivers/src/nrfx_clock.c"
           },
           {
@@ -101,6 +110,9 @@
           },
           {
             "path": "Core/nRF52/modules/nrfx/drivers/src/nrfx_power.c"
+          },
+          {
+            "path": "Core/nRF52/modules/nrfx/drivers/src/nrfx_twi.c"
           },
           {
             "path": "Core/nRF52/modules/nrfx/drivers/src/nrfx_uart.c"
@@ -151,6 +163,18 @@
             "path": "Core/nRF52/modules/components/libraries/fstorage/nrf_fstorage.c"
           },
           {
+            "path": "Core/nRF52/modules/components/libraries/pwr_mgmt/nrf_pwr_mgmt.c"
+          },
+          {
+            "path": "Core/nRF52/modules/components/libraries/sortlist/nrf_sortlist.c"
+          },
+          {
+            "path": "Core/nRF52/modules/components/libraries/timer/app_timer2.c"
+          },
+          {
+            "path": "Core/nRF52/modules/components/libraries/timer/drv_rtc.c"
+          },
+          {
             "path": "Core/nRF52/modules/components/libraries/util/app_error_handler_keil.c"
           },
           {
@@ -172,13 +196,13 @@
         "name": "nRF_SoftDevice",
         "files": [
           {
-            "path": "Core/nRF52/modules/components/softdevice/common/nrf_sdh.c"
-          },
-          {
             "path": "Core/nRF52/modules/components/softdevice/common/nrf_sdh_ble.c"
           },
           {
             "path": "Core/nRF52/modules/components/softdevice/common/nrf_sdh_soc.c"
+          },
+          {
+            "path": "Core/nRF52/modules/components/softdevice/common/nrf_sdh.c"
           }
         ],
         "folders": []
@@ -193,7 +217,7 @@
             "path": "Core/nRF52/modules/nrfx/mdk/system_nrf52.c"
           },
           {
-            "path": "Source.cpp"
+            "path": "Source.c"
           }
         ],
         "folders": []
@@ -221,8 +245,8 @@
               "tag": "IRAM",
               "id": 1,
               "mem": {
-                "startAddr": "0x20000000",
-                "size": "0x5000"
+                "startAddr": "0x20002260",
+                "size": "0x3DDA0"
               },
               "isChecked": true,
               "noInit": false
@@ -233,8 +257,8 @@
               "tag": "IROM",
               "id": 1,
               "mem": {
-                "startAddr": "0x08000000",
-                "size": "0x10000"
+                "startAddr": "0x27000",
+                "size": "0xD9000"
               },
               "isChecked": true,
               "isStartup": true
@@ -290,7 +314,6 @@
           "Core/nRF52/modules/components/libraries/sortlist",
           "Core/nRF52/modules/components/libraries/strerror",
           "Core/nRF52/modules/components/libraries/timer",
-          "Core/nRF52/modules/components/softdevice/s132/headers",
           "Core/nRF52/modules/components/softdevice/common",
           "Core/nRF52/modules/components/libraries/experimental_section_vars",
           "Core/nRF52/modules/components/libraries/log",
@@ -298,12 +321,31 @@
           "Core/nRF52/modules/components/libraries/mutex",
           "Core/nRF52/modules/nrfx",
           "Core/nRF52/modules/nrfx/templates/nRF52832",
-          "Core/nRF52/integration/nrfx"
+          "Core/nRF52/integration/nrfx",
+          "Core/nRF52/modules/components/ble/ble_services/ble_bas_c",
+          "Core/nRF52/modules/components/ble/ble_services/ble_dis_c",
+          "Core/nRF52/modules/components/ble/ble_dtm",
+          "Core/nRF52/modules/components/ble/ble_racp",
+          "Core/nRF52/modules/components/libraries/delay",
+          "Core/nRF52/integration/nrfx/legacy",
+          "Core/nRF52/modules/nrfx/hal",
+          "Core/nRF52/modules/components/softdevice/s140",
+          "Core/nRF52/modules/components/softdevice/s140/headers",
+          "Core/nRF52/modules/components/softdevice/s140/headers/nrf52"
         ],
         "libList": [],
         "sourceDirList": [],
         "defineList": [
-          "NRF52832_XXAA"
+          "SOFTDEVICE_PRESENT ",
+          "NRF_SD_BLE_API_VERSION=7 ",
+          "NRF52_PAN_74",
+          "NRF52 ",
+          "FLOAT_ABI_HARD ",
+          "CONFIG_GPIO_AS_PINRESET ",
+          "APP_TIMER_V2 ",
+          "APP_TIMER_V2_RTC1_ENABLED ",
+          "S140",
+          "NRF52840_XXAA"
         ]
       }
     }

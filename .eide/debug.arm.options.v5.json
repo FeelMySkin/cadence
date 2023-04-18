@@ -3,7 +3,8 @@
     "beforeBuildTasks": [],
     "afterBuildTasks": [],
     "global": {
-        "output-debug-info": "enable"
+        "output-debug-info": "enable",
+        "use-microLIB": true
     },
     "c/cpp-compiler": {
         "optimization": "level-0",
@@ -13,11 +14,8 @@
         "CXX_FLAGS": "--diag_suppress=1 --diag_suppress=1295 --reduce_paths",
         "warnings": "unspecified"
     },
-    "asm-compiler": {
-        "misc-controls": "--cpreproc_opts=-DAPP_TIMER_V2,-DAPP_TIMER_V2_RTC1_ENABLED,-DBOARD_PCA10040,-DCONFIG_GPIO_AS_PINRESET,-DFLOAT_ABI_HARD,-DNRF52,-DNRF52832_XXAA,-DNRF52_PAN_74,-DNRF_SD_BLE_API_VERSION=7,-DS132,-DSOFTDEVICE_PRESENT,-D__HEAP_SIZE=8192,-D__STACK_SIZE=8192"
-    },
+    "asm-compiler": {},
     "linker": {
-        "output-format": "elf",
-        "misc-controls": "--diag_suppress 6330"
+        "output-format": "elf"
     }
 }

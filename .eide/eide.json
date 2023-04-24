@@ -211,6 +211,9 @@
         "name": "Sources",
         "files": [
           {
+            "path": "bmi_controller.c"
+          },
+          {
             "path": "Core/nRF52/modules/nrfx/mdk/arm_startup_nrf52.s"
           },
           {

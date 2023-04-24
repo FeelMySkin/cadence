@@ -384,6 +384,11 @@
           <GroupName>Sources</GroupName>
           <Files>
             <File>
+              <FileName>bmi_controller.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>bmi_controller.c</FilePath>
+            </File>
+            <File>
               <FileName>arm_startup_nrf52.s</FileName>
               <FileType>2</FileType>
               <FilePath>Core/nRF52/modules/nrfx/mdk/arm_startup_nrf52.s</FilePath>

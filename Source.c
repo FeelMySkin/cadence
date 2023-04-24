@@ -11,15 +11,12 @@ BLE_ADVERTISING_DEF(m_adv); //Advertising module instance
 APP_TIMER_DEF(m_battery_tim); //Battery timer
 APP_TIMER_DEF(m_cscs_tim); //CSC measure timer
 
-#define BMI_ADDR	(0x69<<0)
 
 bool sending = false;
 bool sent = false;
 bool receiving = false;
 bool received = false;
 uint8_t recv_byte;
-
-static const nrf_drv_twi_t m_twi = NRF_DRV_TWI_INSTANCE(0);
 
 
 static void battery_level_meas_timeout_handler(void * p_context)
@@ -95,88 +92,26 @@ static void idle_state_handle(void)
    // }
 }
 
-void twi_handler(nrf_drv_twi_evt_t const *p_event, void *p_context)
+static void InitBMI()
 {
-	switch (p_event ->type)
-	{
-		case NRF_DRV_TWI_EVT_DONE:
-			if(p_event->xfer_desc.type == NRF_DRV_TWI_XFER_RX)
-			{
-				received = true;
-			}
-			if(p_event->xfer_desc.type == NRF_DRV_TWI_XFER_TX)
-			{
-				sent = true;
-			}
-			if(p_event->xfer_desc.type == NRF_DRV_TWI_XFER_TXRX)
-			{
-				received = true;
-				sending = false;
-			}
-		break;
+	struct BMI_InitStruct bmi;
+	bmi.scl_pin = I2C0_SCL_PIN;
+	bmi.sda_pin = I2C0_SDA_PIN;
+	bmi.i2c_instance = 0;
 
-		default:
-			sending = false;
-			receiving = false;
-			sent = false;
-			received = false;
-		break;
-	}
-}
-
-static void init_twi()
-{
-	ret_code_t err_code;
-
-	const nrf_drv_twi_config_t twi_conf = {
-		.scl = 13,
-		.sda = 24,
-		.frequency = NRF_DRV_TWI_FREQ_100K,
-		.interrupt_priority = APP_IRQ_PRIORITY_HIGH,
-		.clear_bus_init = false
-	};
-	err_code = nrf_drv_twi_init(&m_twi,&twi_conf,twi_handler, NULL);
-	APP_ERROR_CHECK(err_code);
-
-	nrf_drv_twi_enable(&m_twi);
-}
-
-static void read_data()
-{
-	ret_code_t err_code;
-	if(!sending && !receiving)
-	{
-		uint8_t send = 0x00;
-		//err_code = nrf_drv_twi_tx(&m_twi,BMI_ADDR,&send,1,true);
-		nrf_drv_twi_xfer_desc_t xfer = NRF_DRV_TWI_XFER_DESC_TXRX(BMI_ADDR,&send,1,&recv_byte,1);
-		err_code = nrf_drv_twi_xfer(&m_twi,&xfer,0);
-		//ret_code_t err_code = nrf_drv_twi_rx(&m_twi,/*DEVICE ADDR*/, /*WHERE TO READ*/,/*SIZEOF(READ)*/);
-		//APP_ERROR_CHECK(err_code);
-		sending = true;
-		receiving = true;
-	}
-	else if(sent)
-	{
-		sending = false;
-		sent = false;
-		err_code = nrf_drv_twi_rx(&m_twi,BMI_ADDR, &recv_byte,1);
-		receiving = true;
-	}
-	else if(received)
-	{
-		receiving = false;
-		received = false;
-
-	}
+	BMI_Init(&bmi);
+	while(!BMI_Setup()) asm("NOP");
 }
 
 int main()
 {
 	timers_init();
-	init_twi();
+	InitBMI();
+	//BMI_CalibrateGyro();
 	while(1)
 	{
-		read_data();
+		for(int i = 0;i<1000000;++i) asm("NOP");
+		BMI_ReadData();
 		//idle_state_handle();
 	}
 }

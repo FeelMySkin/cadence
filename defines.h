@@ -27,7 +27,7 @@
 #define DEVICE_NAME					"My Cadence"
 #define MANUFACTURER_NAME			"FeelMySkin"
 
-#define APP_BLLE_OBSERVER_PRIO		3 //BLE Observer priority
+#define APP_BLE_OBSERVER_PRIO		3 //BLE Observer priority
 #define APP_BLE_CONN_CFG_TAG		1 //SoftDevice config tag.
 
 #define APP_ADV_INTERVAL			40 //25ms (0.625ms step)
@@ -36,6 +36,7 @@
 
 #define BATTERY_LEVEL_MEAS_INTERV	APP_TIMER_TICKS(2000)
 #define CSCS_INTERVAL				1000 //msec
+#define BMI_INTERBAL				80 //msec
 
 #define MIN_CONN_INTERVAL			MSEC_TO_UNITS(500, UNIT_1_25_MS) //Minimum connection interval
 #define MAX_CONN_INTERVAL			MSEC_TO_UNITS(1000,UNIT_1_25_MS) //Maximum connection interval

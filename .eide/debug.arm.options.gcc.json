@@ -3,22 +3,20 @@
     "beforeBuildTasks": [],
     "afterBuildTasks": [],
     "global": {
-        "$float-abi-type": "softfp",
+        "$float-abi-type": "hard",
         "output-debug-info": "enable"
     },
     "c/cpp-compiler": {
-        "language-c": "c11",
+        "language-c": "c99",
         "language-cpp": "c++11",
-        "optimization": "level-debug",
+        "optimization": "level-0",
         "warnings": "all-warnings",
         "one-elf-section-per-function": true,
         "one-elf-section-per-data": true,
-        "C_FLAGS": "",
-        "CXX_FLAGS": ""
+        "C_FLAGS": "--diag_suppress=1 --diag_suppress=1295 --reduce_paths",
+        "CXX_FLAGS": "--diag_suppress=1 --diag_suppress=1295 --reduce_paths"
     },
-    "asm-compiler": {
-        "ASM_FLAGS": ""
-    },
+    "asm-compiler": {},
     "linker": {
         "output-format": "elf",
         "remove-unused-input-sections": true,

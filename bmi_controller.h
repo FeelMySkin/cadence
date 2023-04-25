@@ -14,6 +14,8 @@
 
 #include "defines.h"
 #include "nrf_drv_twi.h"
+#include "nrf_drv_gpiote.h"
+#include "nrfx_gpiote.h"
 
 #define BMI_ADDR	(0x69<<0)
 
@@ -124,7 +126,7 @@ struct BMI_InitStruct
 
 struct MMU_Data
 {
-	float x,y,z;
+	double x,y,z;
 };
 
 

@@ -13,6 +13,8 @@ uint8_t write_data[10];
 
 static struct MMU_Data gyro;
 
+
+
 enum BMI_StateMachine
 {
 	BMI_IDLE,
@@ -24,8 +26,9 @@ struct BMI_Handler
 	enum BMI_StateMachine state:2;
 	bool is_found:1;
 	bool is_configured:1;
+	bool is_processing:1;
 	
-} static bmi_control;
+} static volatile bmi_control;
 
 void i2c_handler(nrf_drv_twi_evt_t const *p_event, void *p_context)
 {
@@ -38,8 +41,8 @@ void i2c_handler(nrf_drv_twi_evt_t const *p_event, void *p_context)
 			}
 			if(p_event->xfer_desc.type == NRF_DRV_TWI_XFER_TXRX)
 			{
-				BMI_ProcessReceived();
 				bmi_control.state = BMI_IDLE;
+				BMI_ProcessReceived();
 			}
 		break;
 			
@@ -83,36 +86,36 @@ bool BMI_Setup()
 		/*Write GYRO Config*/
 		uint8_t reg_writer = (8)/*100Hz*/ | (2<<4)/*Normal filter?*/;
 		BMI_WriteBytes(BMI_GYRO_CONF_REG,&reg_writer,1);
-		while(bmi_control.state != BMI_IDLE) asm("NOP");
-		for(int i = 0;i<1000000;++i) asm("NOP");
+		while(bmi_control.state != BMI_IDLE) ;
+		for(int i = 0;i<1000000;++i) ;
 		
 		/*Check errors*/
 		BMI_ReadBytes(BMI_ERR_REG,1);
-		while(bmi_control.state != BMI_IDLE) asm("NOP");
+		while(bmi_control.state != BMI_IDLE) ;
 		if(recv_data[0] != 0x00) return false;
-		for(int i = 0;i<1000000;++i) asm("NOP");
+		for(int i = 0;i<1000000;++i) ;
 		
 		/*Check GYRO Config*/
 		BMI_ReadBytes(BMI_GYRO_CONF_REG,2);
-		while(bmi_control.state != BMI_IDLE) asm("NOP");
+		while(bmi_control.state != BMI_IDLE) ;
 		if(recv_data[0] != reg_writer) return false;
-		for(int i = 0;i<1000000;++i) asm("NOP");
+		for(int i = 0;i<1000000;++i) ;
 		
 		/*Write GYRO Range*/
 		reg_writer = 1/*+-1000 deg/s => 30.5mdeg/s / LSB*/;
 		BMI_WriteBytes(BMI_GYRO_RANGE_REG,&reg_writer,1);
-		while(bmi_control.state != BMI_IDLE) asm("NOP");
-		for(int i = 0;i<1000000;++i) asm("NOP");
+		while(bmi_control.state != BMI_IDLE) ;
+		for(int i = 0;i<1000000;++i) ;
 		
 		/*Check GYRO Range*/
 		BMI_ReadBytes(BMI_GYRO_RANGE_REG,1);
-		while(bmi_control.state != BMI_IDLE) asm("NOP");
+		while(bmi_control.state != BMI_IDLE) ;
 		if(recv_data[0] != reg_writer) return false;
-		for(int i = 0;i<1000000;++i) asm("NOP");
+		for(int i = 0;i<1000000;++i) ;
 		
 		reg_writer = 0x15; //GYRO Normal Mode command.
 		BMI_WriteBytes(BMI_CMD_REG,&reg_writer,1);
-		for(int i = 0;i<1000000;++i) asm("NOP");
+		for(int i = 0;i<1000000;++i) ;
 		
 		return true;
 		
@@ -121,18 +124,59 @@ bool BMI_Setup()
 	return true;
 }
 
+void bmi_exti_irq_handler(nrfx_gpiote_pin_t pin, nrf_gpiote_polarity_t action)
+{
+	BMI_ReadData();
+	return;
+}
+
+void BMI_SetupIRQ()
+{
+	uint8_t writer = (1<<4); //DRDY INT
+	BMI_WriteBytes(BMI_INT_EN1_REG,&writer,1);
+	while(bmi_control.state != BMI_IDLE) ;
+	for(int i = 0;i<1000000;++i) ;
+	
+	BMI_ReadBytes(BMI_INT_EN1_REG,2);
+	while(bmi_control.state != BMI_IDLE) ;
+	for(int i = 0;i<1000000;++i) ;
+	
+	writer = (1<<3); //INT1 Output enable
+	BMI_WriteBytes(BMI_INT_OUT_CTRL_REG,&writer,1);
+	while(bmi_control.state != BMI_IDLE) ;
+	for(int i = 0;i<1000000;++i) ;
+	
+	BMI_ReadBytes(BMI_INT_OUT_CTRL_REG,2);
+	while(bmi_control.state != BMI_IDLE) ;
+	for(int i = 0;i<1000000;++i) ;
+	
+	writer = (1<<7); //INT1 Mapped on DRDY INT
+	BMI_WriteBytes(BMI_INT_MAP0_REG,&writer,1);
+	while(bmi_control.state != BMI_IDLE) ;
+	for(int i = 0;i<1000000;++i) ;
+	
+	BMI_ReadBytes(BMI_INT_MAP0_REG,2);
+	while(bmi_control.state != BMI_IDLE) ;
+	for(int i = 0;i<1000000;++i) ;
+
+	
+	
+	ret_code_t err_code = nrfx_gpiote_init();
+	APP_ERROR_CHECK(err_code);
+	
+	
+	nrfx_gpiote_in_config_t in_conf = NRFX_GPIOTE_CONFIG_IN_SENSE_TOGGLE(true);
+	in_conf.pull = NRF_GPIO_PIN_NOPULL;
+	err_code = nrfx_gpiote_in_init(3,&in_conf,bmi_exti_irq_handler);
+	APP_ERROR_CHECK(err_code);
+	
+	nrfx_gpiote_in_event_enable(3,true);
+}
+
 void BMI_ReadData()
 {
 	BMI_ReadBytes(BMI_STATUS_REG,1);
-	while(bmi_control.state != BMI_IDLE) asm("NOP");
-	for(int i = 0;i<1000000;++i) asm("NOP");
-	
-	if((recv_data[0]&(1<<6)) == 0)
-	{
-		return;
-	}
-	
-	BMI_ReadBytes(BMI_DATA8_REG,6);
+	bmi_control.is_processing = true;
 }
 
 void BMI_ProcessReceived()
@@ -148,6 +192,16 @@ void BMI_ProcessReceived()
 			
 		case BMI_DATA8_REG:
 			BMI_ProcessGyro(recv_data);
+			bmi_control.is_processing = false;
+		break;
+		
+		case BMI_STATUS_REG:
+			if((recv_data[0]&(1<<6)) == 0)
+			{
+				bmi_control.is_processing = false;
+				return;
+			}
+			BMI_ReadBytes(BMI_DATA8_REG,6);
 		break;
 			
 		default:
@@ -157,22 +211,22 @@ void BMI_ProcessReceived()
 
 void BMI_CalibrateGyro()
 {
-	while(bmi_control.state != BMI_IDLE) asm("NOP");
+	while(bmi_control.state != BMI_IDLE) ;
 	uint8_t dater = 1<<6; //Enable FOC_Gyro calibration (Fast offset compensation)
 	BMI_WriteBytes(BMI_FOC_CONF_REG,&dater,1);
-	while(bmi_control.state != BMI_IDLE) asm("NOP");
-	for(int i = 0;i<1000000;++i) asm("NOP");
+	while(bmi_control.state != BMI_IDLE) ;
+	for(int i = 0;i<1000000;++i) ;
 	
 	dater = 0x03; //Statrt FOC
 	BMI_WriteBytes(BMI_CMD_REG,&dater,1);
-	while(bmi_control.state != BMI_IDLE) asm("NOP");
-	for(int i = 0;i<1000000;++i) asm("NOP");
+	while(bmi_control.state != BMI_IDLE) ;
+	for(int i = 0;i<1000000;++i) ;
 	
 	while(1)
 	{
 		BMI_ReadBytes(BMI_STATUS_REG,1);
-		while(bmi_control.state != BMI_IDLE) asm("NOP");
-		for(int i = 0;i<1000000;++i) asm("NOP");
+		while(bmi_control.state != BMI_IDLE) ;
+		for(int i = 0;i<1000000;++i) ;
 		if(recv_data[0] & (1<<3)) break;
 	}
 	dater = 0xA0; //Save NVM command;
@@ -181,8 +235,8 @@ void BMI_CalibrateGyro()
 	while(1)
 	{
 		BMI_ReadBytes(BMI_STATUS_REG,1);
-		while(bmi_control.state != BMI_IDLE) asm("NOP");
-		for(int i = 0;i<1000000;++i) asm("NOP");
+		while(bmi_control.state != BMI_IDLE) ;
+		for(int i = 0;i<1000000;++i) ;
 		if(recv_data[0] & (1<<4)) break;
 	}
 }
@@ -218,4 +272,9 @@ void BMI_WriteBytes(uint8_t reg, uint8_t *data, uint8_t len)
 	err_code = nrf_drv_twi_xfer(&hi2c,&xfer,0);
 	
 	bmi_control.state = BMI_ACTIVE;
+}
+
+struct MMU_Data BMI_GetGyro()
+{
+	return gyro;
 }

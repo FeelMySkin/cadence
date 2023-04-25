@@ -236,7 +236,7 @@
   "targets": {
     "Debug": {
       "excludeList": [],
-      "toolchain": "AC5",
+      "toolchain": "AC6",
       "compileConfig": {
         "cpuType": "Cortex-M4",
         "floatingPointHardware": "single",
@@ -248,8 +248,8 @@
               "tag": "IRAM",
               "id": 1,
               "mem": {
-                "startAddr": "0x20002260",
-                "size": "0x3DDA0"
+                "startAddr": "0x20000000",
+                "size": "0x5000"
               },
               "isChecked": true,
               "noInit": false
@@ -260,8 +260,8 @@
               "tag": "IROM",
               "id": 1,
               "mem": {
-                "startAddr": "0x27000",
-                "size": "0xD9000"
+                "startAddr": "0x08000000",
+                "size": "0x10000"
               },
               "isChecked": true,
               "isStartup": true

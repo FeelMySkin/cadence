@@ -52,7 +52,7 @@
           <OutputName>Cadence</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
-          <CreateHexFile>0</CreateHexFile>
+          <CreateHexFile>1</CreateHexFile>
           <DebugInformation>1</DebugInformation>
           <BrowseInformation>1</BrowseInformation>
           <ListingPath>.\build\Keil\</ListingPath>
@@ -159,11 +159,11 @@
             <ldmm>0</ldmm>
             <ldXref>1</ldXref>
             <BigEnd>0</BigEnd>
-            <AdsALst>0</AdsALst>
+            <AdsALst>1</AdsALst>
             <AdsACrf>1</AdsACrf>
             <AdsANop>0</AdsANop>
             <AdsANot>0</AdsANot>
-            <AdsLLst>0</AdsLLst>
+            <AdsLLst>1</AdsLLst>
             <AdsLmap>1</AdsLmap>
             <AdsLcgr>1</AdsLcgr>
             <AdsLsym>1</AdsLsym>
@@ -275,8 +275,8 @@
               </OCR_RVCT3>
               <OCR_RVCT4>
                 <Type>1</Type>
-                <StartAddress>0x0</StartAddress>
-                <Size>0x100000</Size>
+                <StartAddress>0x27000</StartAddress>
+                <Size>0xd9000</Size>
               </OCR_RVCT4>
               <OCR_RVCT5>
                 <Type>1</Type>
@@ -300,8 +300,8 @@
               </OCR_RVCT8>
               <OCR_RVCT9>
                 <Type>0</Type>
-                <StartAddress>0x20000000</StartAddress>
-                <Size>0x40000</Size>
+                <StartAddress>0x20002260</StartAddress>
+                <Size>0x3dda0</Size>
               </OCR_RVCT9>
               <OCR_RVCT10>
                 <Type>0</Type>
@@ -322,24 +322,24 @@
             <PlainCh>0</PlainCh>
             <Ropi>0</Ropi>
             <Rwpi>0</Rwpi>
-            <wLevel>0</wLevel>
+            <wLevel>2</wLevel>
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
             <uC99>1</uC99>
-            <uGnu>1</uGnu>
+            <uGnu>0</uGnu>
             <useXO>0</useXO>
-            <v6Lang>1</v6Lang>
-            <v6LangP>1</v6LangP>
+            <v6Lang>3</v6Lang>
+            <v6LangP>3</v6LangP>
             <vShortEn>1</vShortEn>
             <vShortWch>1</vShortWch>
             <v6Lto>0</v6Lto>
             <v6WtE>0</v6WtE>
             <v6Rtti>0</v6Rtti>
             <VariousControls>
-              <MiscControls></MiscControls>
-              <Define>SOFTDEVICE_PRESENT ,NRF_SD_BLE_API_VERSION=7 ,NRF52_PAN_74,NRF52 ,FLOAT_ABI_HARD ,CONFIG_GPIO_AS_PINRESET ,APP_TIMER_V2 ,APP_TIMER_V2_RTC1_ENABLED ,S140,NRF52840_XXAA</Define>
+              <MiscControls>--reduce_paths</MiscControls>
+              <Define>APP_TIMER_V2 APP_TIMER_V2_RTC1_ENABLED BOARD_PCA10056 CONFIG_GPIO_AS_PINRESET FLOAT_ABI_HARD NRF52840_XXAA NRF_SD_BLE_API_VERSION=7 S140 SOFTDEVICE_PRESENT __HEAP_SIZE=8192 __STACK_SIZE=8192</Define>
               <Undefine></Undefine>
-              <IncludePath>.eide\deps;.;Core\CMSIS\CMSIS\Core\Include;Core\nRF52\modules\nrfx\mdk;Core\nRF52\modules\components\ble\peer_manager;Core\nRF52\modules\components\ble\common;Core\nRF52\modules\components\ble\ble_advertising;Core\nRF52\modules\components\ble\nrf_ble_gatt;Core\nRF52\modules\components\ble\nrf_ble_qwr;Core\nRF52\modules\components\ble\ble_services\ble_bas;Core\nRF52\modules\components\ble\ble_services\ble_cscs;Core\nRF52\modules\components\ble\ble_services\ble_dis;Core\nRF52\modules\nrfx\soc;Core\nRF52\modules\nrfx\drivers\include;Core\nRF52\modules\components\libraries\button;Core\nRF52\modules\components\libraries\util;Core\nRF52\modules\components\libraries\atomic;Core\nRF52\modules\components\libraries\atomic_fifo;Core\nRF52\modules\components\libraries\atomic_flags;Core\nRF52\modules\components\libraries\balloc;Core\nRF52\modules\components\libraries\crc16;Core\nRF52\modules\components\libraries\fds;Core\nRF52\modules\components\libraries\fstorage;Core\nRF52\modules\components\libraries\hardfault;Core\nRF52\modules\components\libraries\memobj;Core\nRF52\modules\components\libraries\pwr_mgmt;Core\nRF52\modules\components\libraries\ringbuf;Core\nRF52\modules\components\libraries\sensorsim;Core\nRF52\modules\components\libraries\sortlist;Core\nRF52\modules\components\libraries\strerror;Core\nRF52\modules\components\libraries\timer;Core\nRF52\modules\components\softdevice\common;Core\nRF52\modules\components\libraries\experimental_section_vars;Core\nRF52\modules\components\libraries\log;Core\nRF52\modules\components\libraries\log\src;Core\nRF52\modules\components\libraries\mutex;Core\nRF52\modules\nrfx;Core\nRF52\modules\nrfx\templates\nRF52832;Core\nRF52\integration\nrfx;Core\nRF52\modules\components\ble\ble_services\ble_bas_c;Core\nRF52\modules\components\ble\ble_services\ble_dis_c;Core\nRF52\modules\components\ble\ble_dtm;Core\nRF52\modules\components\ble\ble_racp;Core\nRF52\modules\components\libraries\delay;Core\nRF52\integration\nrfx\legacy;Core\nRF52\modules\nrfx\hal;Core\nRF52\modules\components\softdevice\s140;Core\nRF52\modules\components\softdevice\s140\headers;Core\nRF52\modules\components\softdevice\s140\headers\nrf52</IncludePath>
+              <IncludePath>.eide\deps;.;Core\CMSIS\CMSIS\Core\Include;Core\nRF52\modules\nrfx\mdk;Core\nRF52\modules\components\ble\peer_manager;Core\nRF52\modules\components\ble\common;Core\nRF52\modules\components\ble\ble_advertising;Core\nRF52\modules\components\ble\nrf_ble_gatt;Core\nRF52\modules\components\ble\nrf_ble_qwr;Core\nRF52\modules\components\ble\ble_services\ble_bas;Core\nRF52\modules\components\ble\ble_services\ble_cscs;Core\nRF52\modules\components\ble\ble_services\ble_dis;Core\nRF52\modules\nrfx\soc;Core\nRF52\modules\nrfx\drivers\include;Core\nRF52\modules\components\libraries\button;Core\nRF52\modules\components\libraries\util;Core\nRF52\modules\components\libraries\atomic;Core\nRF52\modules\components\libraries\atomic_fifo;Core\nRF52\modules\components\libraries\atomic_flags;Core\nRF52\modules\components\libraries\balloc;Core\nRF52\modules\components\libraries\crc16;Core\nRF52\modules\components\libraries\fds;Core\nRF52\modules\components\libraries\fstorage;Core\nRF52\modules\components\libraries\hardfault;Core\nRF52\modules\components\libraries\memobj;Core\nRF52\modules\components\libraries\pwr_mgmt;Core\nRF52\modules\components\libraries\ringbuf;Core\nRF52\modules\components\libraries\sensorsim;Core\nRF52\modules\components\libraries\sortlist;Core\nRF52\modules\components\libraries\strerror;Core\nRF52\modules\components\libraries\timer;Core\nRF52\modules\components\softdevice\common;Core\nRF52\modules\components\libraries\experimental_section_vars;Core\nRF52\modules\components\libraries\log;Core\nRF52\modules\components\libraries\log\src;Core\nRF52\modules\components\libraries\mutex;Core\nRF52\modules\nrfx;.\Core\nRF52\modules\nrfx\templates\nRF52840;Core\nRF52\integration\nrfx;Core\nRF52\modules\components\ble\ble_services\ble_bas_c;Core\nRF52\modules\components\ble\ble_services\ble_dis_c;Core\nRF52\modules\components\ble\ble_dtm;Core\nRF52\modules\components\ble\ble_racp;Core\nRF52\modules\components\libraries\delay;Core\nRF52\integration\nrfx\legacy;Core\nRF52\modules\nrfx\hal;Core\nRF52\modules\components\softdevice\s140;Core\nRF52\modules\components\softdevice\s140\headers;Core\nRF52\modules\components\softdevice\s140\headers\nrf52</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -354,7 +354,7 @@
             <useXO>0</useXO>
             <ClangAsOpt>4</ClangAsOpt>
             <VariousControls>
-              <MiscControls></MiscControls>
+              <MiscControls> --cpreproc_opts=-DAPP_TIMER_V2,-DAPP_TIMER_V2_RTC1_ENABLED,-DBOARD_PCA10056,-DCONFIG_GPIO_AS_PINRESET,-DFLOAT_ABI_HARD,-DNRF52840_XXAA,-DNRF_SD_BLE_API_VERSION=7,-DS140,-DSOFTDEVICE_PRESENT,-D__HEAP_SIZE=8192,-D__STACK_SIZE=8192</MiscControls>
               <Define>SOFTDEVICE_PRESENT ,NRF_SD_BLE_API_VERSION=7 ,NRF52_PAN_74,NRF52 ,FLOAT_ABI_HARD ,CONFIG_GPIO_AS_PINRESET ,APP_TIMER_V2 ,APP_TIMER_V2_RTC1_ENABLED ,S140,NRF52840_XXAA</Define>
               <Undefine></Undefine>
               <IncludePath></IncludePath>
@@ -373,7 +373,7 @@
             <ScatterFile>&lt;YOUR_SCATTER_FILE&gt;.sct</ScatterFile>
             <IncludeLibs></IncludeLibs>
             <IncludeLibsPath></IncludeLibsPath>
-            <Misc></Misc>
+            <Misc>--diag_suppress 6330</Misc>
             <LinkerInputFile></LinkerInputFile>
             <DisabledWarnings></DisabledWarnings>
           </LDads>
@@ -402,6 +402,11 @@
               <FileName>Source.c</FileName>
               <FileType>1</FileType>
               <FilePath>Source.c</FilePath>
+            </File>
+            <File>
+              <FileName>sdk_config.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\sdk_config.h</FilePath>
             </File>
           </Files>
         </Group>

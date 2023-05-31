@@ -4,6 +4,8 @@
 #include "nrf.h"
 #include "math.h"
 
+#define SAMPLES_IN_BUFFER 10
+
 BLE_BAS_DEF(m_bas); //battery service instance
 BLE_CSCS_DEF(m_cscs); //Cycling speed and cadense service instance
 NRF_BLE_GATT_DEF(m_gatt); //GATT module instance
@@ -39,6 +41,11 @@ uint32_t test_cadence = 0, wheel_tst = 0;
 uint32_t last_evt_time = 0;
 
 
+static nrf_saadc_value_t     m_buffer_pool[SAMPLES_IN_BUFFER];
+static uint32_t              m_adc_evt_counter;
+uint8_t  battery_level;
+
+
 /*------Handlers------**/
 static void idle_state_handle(void)
 {
@@ -46,14 +53,47 @@ static void idle_state_handle(void)
 }
 //
 
+uint8_t map_batt(uint32_t x, uint32_t x_min, uint32_t x_max, uint8_t y_min, uint8_t y_max)
+{
+	if(x<x_min) return y_min;
+	if(x>x_max) return y_max;
+	
+	return (x-x_min) * (y_max - y_min)/ (x_max - x_min) + y_min;
+	
+}
+
+void battery_level_update()
+{
+	ret_code_t err_code;
+
+    err_code = ble_bas_battery_level_update(&m_bas, battery_level, BLE_CONN_HANDLE_ALL);
+    if ((err_code != NRF_SUCCESS) &&
+        (err_code != NRF_ERROR_INVALID_STATE) &&
+        (err_code != NRF_ERROR_RESOURCES) &&
+        (err_code != NRF_ERROR_BUSY) &&
+        (err_code != BLE_ERROR_GATTS_SYS_ATTR_MISSING)
+       )
+    {
+        APP_ERROR_HANDLER(err_code);
+    }
+}
+
 //TODO: update battery
 static void battery_level_meas_timeout_handler(void * p_context)
 {
     UNUSED_PARAMETER(p_context);
+    nrf_saadc_task_trigger(NRF_SAADC_TASK_START);
 	
+	uint32_t mid = 0;
+	for(int i = 0;i<SAMPLES_IN_BUFFER;++i)
+	{
+		mid+= m_buffer_pool[i];
+	}
+	mid/=SAMPLES_IN_BUFFER;
 	
+	battery_level = map_batt(mid, 206, 235, 0, 100);
 	
-    //battery_level_update();
+    battery_level_update();
 }
 //
 
@@ -575,10 +615,50 @@ static void advertising_start(bool erase_bonds)
 }
 //
 
+void saadc_callback(nrf_drv_saadc_evt_t const * p_event)
+{
+    if (p_event->type == NRF_DRV_SAADC_EVT_DONE)
+    {
+        ret_code_t err_code;
+
+        err_code = nrf_drv_saadc_buffer_convert(p_event->data.done.p_buffer, SAMPLES_IN_BUFFER);
+        APP_ERROR_CHECK(err_code);
+
+        int i;
+        //NRF_LOG_INFO("ADC event number: %d", (int)m_adc_evt_counter);
+
+        for (i = 0; i < SAMPLES_IN_BUFFER; i++)
+        {
+            //NRF_LOG_INFO("%d", p_event->data.done.p_buffer[i]);
+        }
+        m_adc_evt_counter++;
+    }
+}
+
+static void InitADC()
+{
+	ret_code_t err_code;
+	nrf_saadc_channel_config_t saa = 
+        NRF_DRV_SAADC_DEFAULT_CHANNEL_CONFIG_SE(NRF_SAADC_INPUT_VDDHDIV5);
+	
+	err_code = nrf_drv_saadc_init(NULL,saadc_callback);
+	APP_ERROR_CHECK(err_code);
+
+    err_code = nrf_drv_saadc_channel_init(0, &saa);
+    APP_ERROR_CHECK(err_code);
+
+    err_code = nrf_drv_saadc_buffer_convert(m_buffer_pool, SAMPLES_IN_BUFFER);
+    APP_ERROR_CHECK(err_code);
+
+    //err_code = nrf_drv_saadc_buffer_convert(m_buffer_pool[1], SAMPLES_IN_BUFFER);
+    //APP_ERROR_CHECK(err_code);
+}
+
 int main()
 {
     bool erase_bonds = false;
 	timers_init();
+	InitADC();
 	power_mgmt_init();
 	ble_stack_init();
 	gap_params_init();

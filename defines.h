@@ -23,6 +23,7 @@
 #include "ble_conn_state.h"
 #include "nrf_ble_qwr.h"
 #include "nrf_pwr_mgmt.h"
+#include "nrf_drv_saadc.h"
 
 #define DEVICE_NAME					"My Cadence"
 #define MANUFACTURER_NAME			"FeelMySkin"
